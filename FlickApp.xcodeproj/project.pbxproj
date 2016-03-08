@@ -1,0 +1,292 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5F54E5451C8EEC6D00D6BE35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F54E5441C8EEC6D00D6BE35 /* AppDelegate.swift */; };
+		5F54E5471C8EEC6D00D6BE35 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F54E5461C8EEC6D00D6BE35 /* ViewController.swift */; };
+		5F54E54A1C8EEC6D00D6BE35 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F54E5481C8EEC6D00D6BE35 /* Main.storyboard */; };
+		5F54E54C1C8EEC6D00D6BE35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F54E54B1C8EEC6D00D6BE35 /* Assets.xcassets */; };
+		5F54E54F1C8EEC6D00D6BE35 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F54E54D1C8EEC6D00D6BE35 /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		5F54E5411C8EEC6D00D6BE35 /* FlickApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F54E5441C8EEC6D00D6BE35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5F54E5461C8EEC6D00D6BE35 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5F54E5491C8EEC6D00D6BE35 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		5F54E54B1C8EEC6D00D6BE35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5F54E54E1C8EEC6D00D6BE35 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		5F54E5501C8EEC6D00D6BE35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5F54E53E1C8EEC6D00D6BE35 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5F54E5381C8EEC6D00D6BE35 = {
+			isa = PBXGroup;
+			children = (
+				5F54E5431C8EEC6D00D6BE35 /* FlickApp */,
+				5F54E5421C8EEC6D00D6BE35 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5F54E5421C8EEC6D00D6BE35 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5F54E5411C8EEC6D00D6BE35 /* FlickApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5F54E5431C8EEC6D00D6BE35 /* FlickApp */ = {
+			isa = PBXGroup;
+			children = (
+				5F54E5441C8EEC6D00D6BE35 /* AppDelegate.swift */,
+				5F54E5461C8EEC6D00D6BE35 /* ViewController.swift */,
+				5F54E5481C8EEC6D00D6BE35 /* Main.storyboard */,
+				5F54E54B1C8EEC6D00D6BE35 /* Assets.xcassets */,
+				5F54E54D1C8EEC6D00D6BE35 /* LaunchScreen.storyboard */,
+				5F54E5501C8EEC6D00D6BE35 /* Info.plist */,
+			);
+			path = FlickApp;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5F54E5401C8EEC6D00D6BE35 /* FlickApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5F54E5531C8EEC6D00D6BE35 /* Build configuration list for PBXNativeTarget "FlickApp" */;
+			buildPhases = (
+				5F54E53D1C8EEC6D00D6BE35 /* Sources */,
+				5F54E53E1C8EEC6D00D6BE35 /* Frameworks */,
+				5F54E53F1C8EEC6D00D6BE35 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FlickApp;
+			productName = FlickApp;
+			productReference = 5F54E5411C8EEC6D00D6BE35 /* FlickApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5F54E5391C8EEC6D00D6BE35 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Hoang Trung Hieu";
+				TargetAttributes = {
+					5F54E5401C8EEC6D00D6BE35 = {
+						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = 6L4W2B659A;
+					};
+				};
+			};
+			buildConfigurationList = 5F54E53C1C8EEC6D00D6BE35 /* Build configuration list for PBXProject "FlickApp" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5F54E5381C8EEC6D00D6BE35;
+			productRefGroup = 5F54E5421C8EEC6D00D6BE35 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5F54E5401C8EEC6D00D6BE35 /* FlickApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5F54E53F1C8EEC6D00D6BE35 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5F54E54F1C8EEC6D00D6BE35 /* LaunchScreen.storyboard in Resources */,
+				5F54E54C1C8EEC6D00D6BE35 /* Assets.xcassets in Resources */,
+				5F54E54A1C8EEC6D00D6BE35 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5F54E53D1C8EEC6D00D6BE35 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5F54E5471C8EEC6D00D6BE35 /* ViewController.swift in Sources */,
+				5F54E5451C8EEC6D00D6BE35 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		5F54E5481C8EEC6D00D6BE35 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5F54E5491C8EEC6D00D6BE35 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		5F54E54D1C8EEC6D00D6BE35 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5F54E54E1C8EEC6D00D6BE35 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5F54E5511C8EEC6D00D6BE35 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		5F54E5521C8EEC6D00D6BE35 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5F54E5541C8EEC6D00D6BE35 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = FlickApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = me.hieupious.FlickApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		5F54E5551C8EEC6D00D6BE35 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = FlickApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = me.hieupious.FlickApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5F54E53C1C8EEC6D00D6BE35 /* Build configuration list for PBXProject "FlickApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5F54E5511C8EEC6D00D6BE35 /* Debug */,
+				5F54E5521C8EEC6D00D6BE35 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5F54E5531C8EEC6D00D6BE35 /* Build configuration list for PBXNativeTarget "FlickApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5F54E5541C8EEC6D00D6BE35 /* Debug */,
+				5F54E5551C8EEC6D00D6BE35 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5F54E5391C8EEC6D00D6BE35 /* Project object */;
+}
