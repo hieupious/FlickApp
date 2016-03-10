@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 import AFNetworking
 
 class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -14,12 +15,22 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var tableView: UITableView!
     
     var movieList: [NSDictionary]?
+    var networkErrorView: UIView?
     let root_path = "https://image.tmdb.org/t/p/w342"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        networkErrorView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 21))
+        networkErrorView!.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        let errorLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 320, height: 21))
+        errorLabel.textAlignment = .Center
+        errorLabel.textColor = UIColor(red: 255, green: 255, blue: 255, alpha: 1)
+        errorLabel.text = "Network Error"
+        networkErrorView!.addSubview(errorLabel)
+        networkErrorView!.hidden = true
+        tableView.addSubview(networkErrorView!)
         // Initialize a UIRefreshControl
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
@@ -82,16 +93,28 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             delegateQueue: NSOperationQueue.mainQueue()
         )
         
+        // Display HUD right before the request is made
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        
         let task: NSURLSessionDataTask = session.dataTaskWithRequest(request,
             completionHandler: { (dataOrNil, response, error) in
                 if let data = dataOrNil {
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {
+                            // Hide HUD once the network request comes back (must be done on main UI thread)
+                            MBProgressHUD.hideHUDForView(self.view, animated: true)
+                            self.networkErrorView!.hidden = true
                             print("response: \(responseDictionary)")
                             self.movieList = responseDictionary["results"] as? [NSDictionary]
                             print("movie list: \(self.movieList)")
                             self.tableView.reloadData()
                     }
+                }
+                if let err = error {
+                    self.networkErrorView!.hidden = false
+                    // Hide HUD once the network request comes back (must be done on main UI thread)
+                    MBProgressHUD.hideHUDForView(self.view, animated: true)
+                    print(err)
                 }
         })
         task.resume()
@@ -100,7 +123,6 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func refreshControlAction(refreshControl: UIRefreshControl) {
         print("refresh call")
         fetchData()
-        sleep(2000)
         refreshControl.endRefreshing()
     }
 }

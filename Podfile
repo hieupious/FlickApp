@@ -4,6 +4,7 @@ use_frameworks!
 target 'FlickApp' do
 
 pod 'AFNetworking'
+pod 'MBProgressHUD'
 
 end
 
