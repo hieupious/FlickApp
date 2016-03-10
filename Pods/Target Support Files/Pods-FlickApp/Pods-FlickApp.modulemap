@@ -1,0 +1,6 @@
+framework module Pods_FlickApp {
+  umbrella header "Pods-FlickApp-umbrella.h"
+
+  export *
+  module * { export * }
+}
