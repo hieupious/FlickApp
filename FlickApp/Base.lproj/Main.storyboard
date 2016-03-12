@@ -100,7 +100,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="W87-g9-Rsi">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <rect key="frame" x="0.0" y="-68" width="320" height="568"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                 </subviews>
@@ -124,7 +124,7 @@
         <!--Navigation Controller-->
         <scene sceneID="MWf-lC-xki">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HB7-6O-qWg" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MoviesNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="HB7-6O-qWg" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bWh-vP-KDm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

@@ -17,11 +17,13 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var movieList: [NSDictionary]?
     var networkErrorView: UIView?
     let root_path = "https://image.tmdb.org/t/p/w342"
+    var endpoint: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        // init network error
         networkErrorView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 21))
         networkErrorView!.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
         let errorLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 320, height: 21))
@@ -57,6 +59,24 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if let poster_path = movie["poster_path"] as? String {
             let url = NSURL(string: self.root_path + poster_path)
             cell.thumbnailImageView.setImageWithURL(url!)
+            let imageRequest = NSURLRequest(URL: url!)
+            cell.thumbnailImageView.setImageWithURLRequest(imageRequest,
+                placeholderImage: nil, success: { (imageRequest, imageResponse, image) -> Void in
+                // imageResponse will be nil if the image is cached
+                if imageResponse != nil {
+                    print("Image was NOT cached, fade in image")
+                    cell.thumbnailImageView.alpha = 0.0
+                    cell.thumbnailImageView.image = image
+                    UIView.animateWithDuration(0.3, animations: { () -> Void in
+                        cell.thumbnailImageView.alpha = 1.0
+                    })
+                } else {
+                    print("Image was cached so just update the image")
+                    cell.thumbnailImageView.image = image
+                }
+                }, failure: { (imageRequest, imageResponse, error) -> Void in
+            
+            })
         }
         return cell
     }
@@ -81,7 +101,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     func fetchData() {
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
-        let url = NSURL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
+        let url = NSURL(string: "https://api.themoviedb.org/3/movie/\(endpoint)?api_key=\(apiKey)")
         let request = NSURLRequest(
             URL: url!,
             cachePolicy: NSURLRequestCachePolicy.ReloadIgnoringLocalCacheData,
