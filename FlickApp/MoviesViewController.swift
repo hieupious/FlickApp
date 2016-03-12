@@ -29,7 +29,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.dataSource = self
         tableView.delegate = self
         searchBar.delegate = self
-        
+        searchBar.placeholder = "Enter your text"
         // init network error
         networkErrorView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 21))
         networkErrorView!.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
@@ -58,7 +58,10 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // MARK: - Table view
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searchActive {
-            return filtedList.count
+            if filtedList.count > 1 {
+                return filtedList.count
+            }
+            return 1
         }
         return movieList?.count ?? 0
     }
@@ -67,49 +70,64 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! MovieCell
         
         var movie = movieList![indexPath.row] as NSDictionary
-        if(searchActive) {
+        if(searchActive && filtedList.count > 0) {
             movie = filtedList[indexPath.row]
         }
-        cell.titleLabel.text = movie["title"] as? String
-        cell.overviewLabel.text = movie["overview"] as? String
-//        cell.overviewLabel.sizeToFit()
-        if let poster_path = movie["poster_path"] as? String {
-            let url = NSURL(string: self.root_path + poster_path)
-            cell.thumbnailImageView.setImageWithURL(url!)
-            let imageRequest = NSURLRequest(URL: url!)
-            cell.thumbnailImageView.setImageWithURLRequest(imageRequest,
-                placeholderImage: nil, success: { (imageRequest, imageResponse, image) -> Void in
-                // imageResponse will be nil if the image is cached
-                if imageResponse != nil {
-                    print("Image was NOT cached, fade in image")
-                    cell.thumbnailImageView.alpha = 0.0
-                    cell.thumbnailImageView.image = image
-                    UIView.animateWithDuration(0.3, animations: { () -> Void in
-                        cell.thumbnailImageView.alpha = 1.0
-                    })
-                } else {
-                    print("Image was cached so just update the image")
-                    cell.thumbnailImageView.image = image
-                }
-                }, failure: { (imageRequest, imageResponse, error) -> Void in
-            
-            })
+
+        if filtedList.count == 0 && searchActive {
+            cell.titleLabel.text = "No result"
+            cell.overviewLabel.text = ""
+            cell.thumbnailImageView.image = nil
+        } else {
+            cell.titleLabel.text = movie["title"] as? String
+            cell.overviewLabel.text = movie["overview"] as? String
+            //        cell.overviewLabel.sizeToFit()
+            if let poster_path = movie["poster_path"] as? String {
+                let url = NSURL(string: self.root_path + poster_path)
+                cell.thumbnailImageView.setImageWithURL(url!)
+                let imageRequest = NSURLRequest(URL: url!)
+                cell.thumbnailImageView.setImageWithURLRequest(imageRequest,
+                    placeholderImage: nil, success: { (imageRequest, imageResponse, image) -> Void in
+                        // imageResponse will be nil if the image is cached
+                        if imageResponse != nil {
+                            print("Image was NOT cached, fade in image")
+                            cell.thumbnailImageView.alpha = 0.0
+                            cell.thumbnailImageView.image = image
+                            UIView.animateWithDuration(0.3, animations: { () -> Void in
+                                cell.thumbnailImageView.alpha = 1.0
+                            })
+                        } else {
+                            print("Image was cached so just update the image")
+                            cell.thumbnailImageView.image = image
+                        }
+                    }, failure: { (imageRequest, imageResponse, error) -> Void in
+                        
+                })
+            }
         }
+        
         return cell
     }
     
     // MARK: - Search Bar
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
         searchActive = true;
     }
     
     func searchBarTextDidEndEditing(searchBar: UISearchBar) {
-        searchActive = false;
+//        searchActive = false;
+//        searchBar.showsCancelButton = false
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         searchActive = false;
+        print("cancel button clicked")
+        searchBar.text = ""
+        searchBar.showsCancelButton = false
+        searchBar.endEditing(true)
+        tableView.reloadData()
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
@@ -124,11 +142,12 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 let range = tmp.rangeOfString(searchText, options: .CaseInsensitiveSearch)
                 return !(range?.isEmpty == nil)
             }))!
-            if filtedList.count == 0 {
-                searchActive = false
-            } else {
-                searchActive = true
-            }
+            searchActive = true
+//            if filtedList.count == 0 {
+//                searchActive = false
+//            } else {
+//                searchActive = true
+//            }
             self.tableView.reloadData()
     }
 
