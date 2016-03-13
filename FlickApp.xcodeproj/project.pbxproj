@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F06135F1C95121000A20597 /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F06135E1C95121000A20597 /* MovieCollectionViewCell.swift */; };
+		5F0613611C95198200A20597 /* NetworkErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0613601C95198200A20597 /* NetworkErrorView.swift */; };
 		5F064D1F1C91633400A4CB4B /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F064D1E1C91633400A4CB4B /* MovieCell.swift */; };
 		5F064D211C91720C00A4CB4B /* DetailMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F064D201C91720C00A4CB4B /* DetailMovieViewController.swift */; };
 		5F54E5451C8EEC6D00D6BE35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F54E5441C8EEC6D00D6BE35 /* AppDelegate.swift */; };
@@ -19,6 +21,8 @@
 
 /* Begin PBXFileReference section */
 		082BD514B0027BE0170C79F2 /* Pods-FlickApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FlickApp/Pods-FlickApp.debug.xcconfig"; sourceTree = "<group>"; };
+		5F06135E1C95121000A20597 /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
+		5F0613601C95198200A20597 /* NetworkErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkErrorView.swift; sourceTree = "<group>"; };
 		5F064D1E1C91633400A4CB4B /* MovieCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
 		5F064D201C91720C00A4CB4B /* DetailMovieViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailMovieViewController.swift; sourceTree = "<group>"; };
 		5F54E5411C8EEC6D00D6BE35 /* FlickApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,6 +70,8 @@
 			isa = PBXGroup;
 			children = (
 				5F064D1E1C91633400A4CB4B /* MovieCell.swift */,
+				5F06135E1C95121000A20597 /* MovieCollectionViewCell.swift */,
+				5F0613601C95198200A20597 /* NetworkErrorView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -235,7 +241,9 @@
 			files = (
 				5F064D211C91720C00A4CB4B /* DetailMovieViewController.swift in Sources */,
 				5F54E5451C8EEC6D00D6BE35 /* AppDelegate.swift in Sources */,
+				5F06135F1C95121000A20597 /* MovieCollectionViewCell.swift in Sources */,
 				5F54E5591C8EF7E500D6BE35 /* MoviesViewController.swift in Sources */,
+				5F0613611C95198200A20597 /* NetworkErrorView.swift in Sources */,
 				5F064D1F1C91633400A4CB4B /* MovieCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

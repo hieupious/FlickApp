@@ -10,36 +10,37 @@ import UIKit
 import MBProgressHUD
 import AFNetworking
 
-class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var switchViewButton: UIBarButtonItem!
+    
     
     var movieList: [NSDictionary]?
     var filtedList: [NSDictionary] = []
     
-    var networkErrorView: UIView?
+    var networkErrorView: UIView = NetworkErrorView(frame: CGRectZero)
     let root_path = "https://image.tmdb.org/t/p/w342"
     var endpoint: String!
     var searchActive: Bool = false
+    var isListView: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // set delegate
         tableView.dataSource = self
         tableView.delegate = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.hidden = true
+        
         searchBar.delegate = self
         searchBar.placeholder = "Enter your text"
-        // init network error
-        networkErrorView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 21))
-        networkErrorView!.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
-        let errorLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 320, height: 21))
-        errorLabel.textAlignment = .Center
-        errorLabel.textColor = UIColor(red: 255, green: 255, blue: 255, alpha: 1)
-        errorLabel.text = "Network Error"
-        networkErrorView!.addSubview(errorLabel)
-        networkErrorView!.hidden = true
-        tableView.addSubview(networkErrorView!)
+        
+        
+        tableView.addSubview(networkErrorView)
         
         // Initialize a UIRefreshControl
         let refreshControl = UIRefreshControl()
@@ -84,7 +85,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             //        cell.overviewLabel.sizeToFit()
             if let poster_path = movie["poster_path"] as? String {
                 let url = NSURL(string: self.root_path + poster_path)
-                cell.thumbnailImageView.setImageWithURL(url!)
+//                cell.thumbnailImageView.setImageWithURL(url!)
                 let imageRequest = NSURLRequest(URL: url!)
                 cell.thumbnailImageView.setImageWithURLRequest(imageRequest,
                     placeholderImage: nil, success: { (imageRequest, imageResponse, image) -> Void in
@@ -93,7 +94,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
                             print("Image was NOT cached, fade in image")
                             cell.thumbnailImageView.alpha = 0.0
                             cell.thumbnailImageView.image = image
-                            UIView.animateWithDuration(0.3, animations: { () -> Void in
+                            UIView.animateWithDuration(1.0, animations: { () -> Void in
                                 cell.thumbnailImageView.alpha = 1.0
                             })
                         } else {
@@ -193,15 +194,16 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         data, options:[]) as? NSDictionary {
                             // Hide HUD once the network request comes back (must be done on main UI thread)
                             MBProgressHUD.hideHUDForView(self.view, animated: true)
-                            self.networkErrorView!.hidden = true
+                            self.networkErrorView.hidden = true
                             print("response: \(responseDictionary)")
                             self.movieList = responseDictionary["results"] as? [NSDictionary]
                             print("movie list: \(self.movieList)")
                             self.tableView.reloadData()
+                            self.collectionView.reloadData()
                     }
                 }
                 if let err = error {
-                    self.networkErrorView!.hidden = false
+                    self.networkErrorView.hidden = false
                     // Hide HUD once the network request comes back (must be done on main UI thread)
                     MBProgressHUD.hideHUDForView(self.view, animated: true)
                     print(err)
@@ -215,4 +217,60 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         fetchData()
         refreshControl.endRefreshing()
     }
+    
+    @IBAction func switchViewAction(sender: UIBarButtonItem) {
+        if self.isListView {
+            switchViewButton.image = UIImage(named: "grid")
+            isListView = false
+            tableView.hidden = true
+            collectionView.hidden = false
+        } else {
+            switchViewButton.image = UIImage(named: "list")
+            isListView = true
+            tableView.hidden = false
+            collectionView.hidden = true
+        }
+
+    }
+    
+    // MARK: Collection View
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return movieList?.count ?? 0
+    }
+    
+    // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CellCollection", forIndexPath: indexPath) as! MovieCollectionViewCell
+        
+        var movie = movieList![indexPath.row] as NSDictionary
+        
+        cell.titleLabel.text = movie["title"] as? String
+        
+        if let poster_path = movie["poster_path"] as? String {
+            let url = NSURL(string: self.root_path + poster_path)
+            //                cell.thumbnailImageView.setImageWithURL(url!)
+            let imageRequest = NSURLRequest(URL: url!)
+            cell.posterImageView.setImageWithURLRequest(imageRequest,
+                placeholderImage: nil, success: { (imageRequest, imageResponse, image) -> Void in
+                    // imageResponse will be nil if the image is cached
+                    if imageResponse != nil {
+                        print("Image was NOT cached, fade in image")
+                        cell.posterImageView.alpha = 0.0
+                        cell.posterImageView.image = image
+                        UIView.animateWithDuration(1.0, animations: { () -> Void in
+                            cell.posterImageView.alpha = 1.0
+                        })
+                    } else {
+                        print("Image was cached so just update the image")
+                        cell.posterImageView.image = image
+                    }
+                }, failure: { (imageRequest, imageResponse, error) -> Void in
+                    
+            })
+        }
+        
+        return cell
+    }
+
+
 }
