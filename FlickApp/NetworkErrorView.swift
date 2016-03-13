@@ -24,11 +24,15 @@ class NetworkErrorView: UIView {
         // init network error
         self.frame = CGRect(x: 0, y: 0, width: 320, height: 21)
         self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        let errorImageView = UIImageView(frame: CGRect(x: 93, y: 6, width: 10, height: 10))
+        errorImageView.image = UIImage(named: "error")
         let errorLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 320, height: 21))
         errorLabel.textAlignment = .Center
         errorLabel.textColor = UIColor(red: 255, green: 255, blue: 255, alpha: 1)
         errorLabel.text = "Network Error"
+
         self.addSubview(errorLabel)
+                self.addSubview(errorImageView)
         self.hidden = true
     }
 

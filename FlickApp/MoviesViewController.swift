@@ -163,7 +163,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         let cell = sender as! MovieCell
         let indexPath = tableView.indexPathForCell(cell)
-        let movie = movieList![indexPath!.row]
+        let movie = movieList![indexPath!.row]	
         let detailViewController = segue.destinationViewController as! DetailMovieViewController
         detailViewController.movie = movie
         
@@ -265,7 +265,8 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         cell.posterImageView.image = image
                     }
                 }, failure: { (imageRequest, imageResponse, error) -> Void in
-                    
+                    print(error)
+                    self.networkErrorView.hidden = false
             })
         }
         

@@ -19,10 +19,10 @@ class DetailMovieViewController: UIViewController {
     var movie: NSDictionary!
     let largeURL = "https://image.tmdb.org/t/p/original"
     let smallURL = "https://image.tmdb.org/t/p/w45"
+    let networkErrorView = NetworkErrorView(frame: CGRectZero)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
         // Do any additional setup after loading the view.
         print(movie)
@@ -44,7 +44,7 @@ class DetailMovieViewController: UIViewController {
                     self.posterImageView.alpha = 1.0
                     
                     }, completion: { (sucess) -> Void in
-                        
+                        self.networkErrorView.hidden = true
                         // The AFNetworking ImageView Category only allows one request to be sent at a time
                         // per ImageView. This code must be in the completion block.
                         self.posterImageView.setImageWithURLRequest(
@@ -63,6 +63,8 @@ class DetailMovieViewController: UIViewController {
                 }, failure: {(request, response, error) -> Void in
                     // do something for the failure condition
                     // possibly try to get the large image
+                    print(error)
+                    self.networkErrorView.hidden = false
             })
         }
         
