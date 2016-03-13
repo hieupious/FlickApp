@@ -19,9 +19,11 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     var movieList: [NSDictionary]?
-    var filtedList: [NSDictionary] = []
+    var filteredList: [NSDictionary] = []
     
     var networkErrorView: UIView = NetworkErrorView(frame: CGRectZero)
+    var noResultLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 280, width: 320, height: 32))
+    
     let root_path = "https://image.tmdb.org/t/p/w342"
     var endpoint: String!
     var searchActive: Bool = false
@@ -39,6 +41,10 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         searchBar.delegate = self
         searchBar.placeholder = "Enter your text"
         
+        noResultLabel.text = "No Result"
+        noResultLabel.textAlignment = .Center
+        noResultLabel.hidden = true
+        self.view.addSubview(noResultLabel)
         
         tableView.addSubview(networkErrorView)
         
@@ -59,10 +65,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     // MARK: - Table view
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searchActive {
-            if filtedList.count > 1 {
-                return filtedList.count
-            }
-            return 1
+            return filteredList.count
         }
         return movieList?.count ?? 0
     }
@@ -71,41 +74,34 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! MovieCell
         
         var movie = movieList![indexPath.row] as NSDictionary
-        if(searchActive && filtedList.count > 0) {
-            movie = filtedList[indexPath.row]
+        if searchActive {
+            movie = filteredList[indexPath.row]
         }
-
-        if filtedList.count == 0 && searchActive {
-            cell.titleLabel.text = "No result"
-            cell.overviewLabel.text = ""
-            cell.thumbnailImageView.image = nil
-        } else {
-            cell.titleLabel.text = movie["title"] as? String
-            cell.overviewLabel.text = movie["overview"] as? String
-            //        cell.overviewLabel.sizeToFit()
-            if let poster_path = movie["poster_path"] as? String {
-                let url = NSURL(string: self.root_path + poster_path)
-//                cell.thumbnailImageView.setImageWithURL(url!)
-                let imageRequest = NSURLRequest(URL: url!)
-                cell.thumbnailImageView.setImageWithURLRequest(imageRequest,
-                    placeholderImage: nil, success: { (imageRequest, imageResponse, image) -> Void in
-                        // imageResponse will be nil if the image is cached
-                        if imageResponse != nil {
-                            print("Image was NOT cached, fade in image")
-                            cell.thumbnailImageView.alpha = 0.0
-                            cell.thumbnailImageView.image = image
-                            UIView.animateWithDuration(1.0, animations: { () -> Void in
-                                cell.thumbnailImageView.alpha = 1.0
-                            })
-                        } else {
-                            print("Image was cached so just update the image")
-                            cell.thumbnailImageView.image = image
-                        }
-                    }, failure: { (imageRequest, imageResponse, error) -> Void in
-                        
-                })
+        
+        cell.titleLabel.text = movie["title"] as? String
+        cell.overviewLabel.text = movie["overview"] as? String
+        if let poster_path = movie["poster_path"] as? String {
+            let url = NSURL(string: self.root_path + poster_path)
+            let imageRequest = NSURLRequest(URL: url!)
+            cell.thumbnailImageView.setImageWithURLRequest(imageRequest,
+                placeholderImage: nil, success: { (imageRequest, imageResponse, image) -> Void in
+                    // imageResponse will be nil if the image is cached
+                    if imageResponse != nil {
+                        print("Image was NOT cached, fade in image")
+                        cell.thumbnailImageView.alpha = 0.0
+                        cell.thumbnailImageView.image = image
+                        UIView.animateWithDuration(1.0, animations: { () -> Void in
+                            cell.thumbnailImageView.alpha = 1.0
+                        })
+                    } else {
+                        print("Image was cached so just update the image")
+                        cell.thumbnailImageView.image = image
+                    }
+                }, failure: { (imageRequest, imageResponse, error) -> Void in
+                    
+            })
             }
-        }
+        
         
         return cell
     }
@@ -129,6 +125,8 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         searchBar.showsCancelButton = false
         searchBar.endEditing(true)
         tableView.reloadData()
+        collectionView.reloadData()
+        noResultLabel.hidden = true
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
@@ -138,18 +136,21 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func searchBar(searchBar: UISearchBar,
         textDidChange searchText: String) {
-            filtedList = (movieList?.filter({ (text) -> Bool in
+            filteredList = (movieList?.filter({ (text) -> Bool in
                 let tmp: String = text["title"] as! String
                 let range = tmp.rangeOfString(searchText, options: .CaseInsensitiveSearch)
                 return !(range?.isEmpty == nil)
             }))!
             searchActive = true
-//            if filtedList.count == 0 {
+            if filteredList.count == 0 {
 //                searchActive = false
-//            } else {
-//                searchActive = true
-//            }
+                noResultLabel.hidden = false
+            } else {
+                searchActive = true
+                noResultLabel.hidden = true
+            }
             self.tableView.reloadData()
+            self.collectionView.reloadData()
     }
 
 
@@ -161,9 +162,24 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Pass the selected object to the new view controller.
         print("prepare for segue")
         
-        let cell = sender as! MovieCell
-        let indexPath = tableView.indexPathForCell(cell)
-        let movie = movieList![indexPath!.row]	
+        let cell = sender
+        var index: Int = 0
+        if isListView {
+            let indexPath = tableView.indexPathForCell(cell as! MovieCell)
+            index = indexPath!.row
+        } else {
+            let indexPath = collectionView.indexPathForCell(cell as! MovieCollectionViewCell)
+            index = indexPath!.row
+        }
+        
+        var movie = movieList![index]
+        if searchActive {
+            if filteredList.count == 0 {
+                return;
+            } else {
+                movie = filteredList[index]
+            }
+        }
         let detailViewController = segue.destinationViewController as! DetailMovieViewController
         detailViewController.movie = movie
         
@@ -235,6 +251,9 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // MARK: Collection View
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if searchActive {
+            return filteredList.count
+        }
         return movieList?.count ?? 0
     }
     
@@ -243,12 +262,16 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("CellCollection", forIndexPath: indexPath) as! MovieCollectionViewCell
         
         var movie = movieList![indexPath.row] as NSDictionary
+        if searchActive {
+            if filteredList.count > 0 {
+                movie = filteredList[indexPath.row]
+            }
+        }
         
         cell.titleLabel.text = movie["title"] as? String
         
         if let poster_path = movie["poster_path"] as? String {
             let url = NSURL(string: self.root_path + poster_path)
-            //                cell.thumbnailImageView.setImageWithURL(url!)
             let imageRequest = NSURLRequest(URL: url!)
             cell.posterImageView.setImageWithURLRequest(imageRequest,
                 placeholderImage: nil, success: { (imageRequest, imageResponse, image) -> Void in

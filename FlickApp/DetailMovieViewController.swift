@@ -35,7 +35,6 @@ class DetailMovieViewController: UIViewController {
         if let poster_path = movie["poster_path"] as? String {
             let smallImageURL = NSURL(string: self.smallURL + poster_path)
             let largeImageURL = NSURL(string: self.largeURL + poster_path)
-//            posterImageView.setImageWithURL(postURL!)
             posterImageView.setImageWithURLRequest(NSURLRequest(URL: smallImageURL!), placeholderImage: nil, success: { (smallImageRequest, smallImageResponse, smallImage) -> Void in
                 self.posterImageView.alpha = 0.0
                 self.posterImageView.image = smallImage

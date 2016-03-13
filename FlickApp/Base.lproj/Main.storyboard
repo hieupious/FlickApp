@@ -54,6 +54,7 @@
                                         <connections>
                                             <outlet property="posterImageView" destination="cDu-Py-imf" id="tlF-Se-FCy"/>
                                             <outlet property="titleLabel" destination="GKs-wo-jXX" id="zpB-x6-iG5"/>
+                                            <segue destination="gtG-3c-uWH" kind="push" id="kUQ-y0-XJf"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -63,11 +64,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" rowHeight="117" id="o2u-jq-LvC" customClass="MovieCell" customModule="FlickApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" rowHeight="117" id="o2u-jq-LvC" customClass="MovieCell" customModule="FlickApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="117"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="o2u-jq-LvC" id="pmh-nh-A4p">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="116.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="116.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="noR-R6-G0u">
@@ -197,4 +198,7 @@
     <resources>
         <image name="list" width="25" height="25"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="kUQ-y0-XJf"/>
+    </inferredMetricsTieBreakers>
 </document>
